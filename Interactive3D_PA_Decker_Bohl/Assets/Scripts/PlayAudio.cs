@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Reflection.Emit;
 using System.Net.NetworkInformation;
+using Unity.VisualScripting;
 
 public class PlayAudio : MonoBehaviour
 {
@@ -36,31 +37,42 @@ public class PlayAudio : MonoBehaviour
         {
             ShowLabel(1);
             ShowLabel(2);
+            HideLabel(0);
         }
 
-        // If the player is close enough
+        // If the player is close enough and label 3 is not showing (audio is not paused), show label 0
         if (_isClose)
         {
-            // If E key is pressed, select the current audio clip, play it and set isPlaying true
+            if (_isPlaying == false && labelsUI[3].gameObject.activeSelf == false)
+            {
+                ShowLabel(0);
+            }
+            
+            // If E key is pressed, select the current audio clip, play it and set isPlaying true, hide label 3 and show label 1
             if (Input.GetKeyDown(KeyCode.E))
             {
                 SelectAudioClip(0);
                 _audioSource.Play();
                 _isPlaying = true;
+                HideLabel(3);
+                ShowLabel(1);
+                
             }
         }
         
         // If the audio is playing
         if(_isPlaying)
         {
-            // If spacebar is pressed, stop audio and set isPlaying to false
+            // If spacebar is pressed, stop audio and set isPlaying to false, hide label 1 and show label 3
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                _audioSource.Stop();
+                _audioSource.Pause();
                 _isPlaying = false;
-            }
+                HideLabel(1);
+                ShowLabel(3);
+            }    
         }
-        
+
         // If the R key is pressed, stop and play the audio clip, so it starts from the beginning
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -69,13 +81,11 @@ public class PlayAudio : MonoBehaviour
         }
     }
 
-    // As long as the player is in the bounds of the trigger, show label with the index 0 ("Press E") and set isClose and isPlaying true
+    // As long as the player is in the bounds of the trigger, set isClose true
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            ShowLabel(0);
-            _isPlaying = true;
             _isClose = true;
         }
     }
@@ -104,6 +114,16 @@ public class PlayAudio : MonoBehaviour
             labelsUI[index].gameObject.SetActive(true);
         }
         
+    }
+
+    // Shows the label with the given index
+    public void HideLabel(int index)
+    {
+        if (index >= 0 && index <= labelsUI.Length)
+        {
+            labelsUI[index].gameObject.SetActive(false);
+        }
+
     }
 
     // Select the right audio clip with the given index 
