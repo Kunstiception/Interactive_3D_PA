@@ -85,7 +85,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isActive
+    m_ConditionEvent: hasInteracted
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7469915890885966226}
@@ -132,7 +132,7 @@ AnimatorController:
   m_Name: Tonabnehmer
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: isActive
+  - m_Name: hasInteracted
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -245,7 +245,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: isActive
+    m_ConditionEvent: hasInteracted
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2263922780202987783}
