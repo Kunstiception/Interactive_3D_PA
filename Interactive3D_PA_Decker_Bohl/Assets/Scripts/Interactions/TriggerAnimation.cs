@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class TriggerAnimation : InteractableObject
 {
-        // Animator of the object
+    // The corresponding lightsource
+    public Light lightSource;
+    
+    // Animator of the object
     private Animator _animator;
     
     // Start is called before the first frame update
@@ -28,11 +31,21 @@ public class TriggerAnimation : InteractableObject
         if (!_animator.GetBool("hasInteracted"))
         {
             _animator.SetBool("hasInteracted", true);
+            
+            if(lightSource != null)
+            {
+                lightSource.enabled = true;
+            }
         }
 
         else if (_animator.GetBool("hasInteracted"))
         {
             _animator.SetBool("hasInteracted", false);
+
+            if (lightSource != null)
+            {
+                lightSource.enabled = false;
+            }
         }
     }
 }
