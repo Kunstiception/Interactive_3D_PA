@@ -28,7 +28,11 @@ public class PlayAudio : InteractableObject
 
     private TriggerAnimation _triggerAnimation;
 
-    
+    private Progression _progression;
+
+    private SubtitlesManager _subtitlesManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +40,9 @@ public class PlayAudio : InteractableObject
         _animator = GetComponentInChildren<Animator>();
         _text = GameObject.Find("AudioLabel").GetComponent<TMP_Text>();
         _text.gameObject.SetActive(false);
-        
+        _progression = GameObject.Find("GameManager").GetComponent<Progression>();
+        _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
+
     }
 
     // Update is called once per frame
@@ -55,17 +61,26 @@ public class PlayAudio : InteractableObject
 
     public override void TriggerInteraction()
     {
-        if (!_animator.GetBool("hasInteracted"))
+        if (_progression.lightsOn)
         {
-            _animator.SetBool("hasInteracted", true);
-            _audioSource.Play();
-            StartCoroutine(WaitForAudio());
+            if (!_animator.GetBool("hasInteracted"))
+            {
+                _animator.SetBool("hasInteracted", true);
+                _audioSource.Play();
+                StartCoroutine(WaitForAudio());
+            }
+            else if (_animator.GetBool("hasInteracted"))
+            {
+                _animator.SetBool("hasInteracted", false);
+                _audioSource.Stop();
+            }
         }
-        else if (_animator.GetBool("hasInteracted"))
+
+        else if (!_progression.lightsOn)
         {
-            _animator.SetBool("hasInteracted", false);
-            _audioSource.Stop();
-            
+            print("ahahaha");
+            StartCoroutine(_subtitlesManager.WriteSubtitles(2, 3f));
+
         }
 
 
