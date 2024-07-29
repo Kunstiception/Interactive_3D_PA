@@ -26,7 +26,6 @@ public class TriggerAnimation : InteractableObject
 
     public override void TriggerInteraction()
     {
-        print("PlayAnimation");
 
         if (!_animator.GetBool("hasInteracted"))
         {

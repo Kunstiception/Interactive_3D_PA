@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class PlayAudio : MonoBehaviour
+public class PlayAudio : InteractableObject
 {
     // Array of the used audio clips
-    public AudioClip[] audioFiles;
+    public AudioClip audioFile;
 
     // Array of the used UI labels
     public string[] labelsText;
+
+    public AnimationClip animationClip;
 
     private AudioSource _audioSource;
 
@@ -25,6 +27,7 @@ public class PlayAudio : MonoBehaviour
     private TMP_Text _text;
 
     private TriggerAnimation _triggerAnimation;
+
     
     // Start is called before the first frame update
     void Start()
@@ -33,7 +36,7 @@ public class PlayAudio : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _text = GameObject.Find("AudioLabel").GetComponent<TMP_Text>();
         _text.gameObject.SetActive(false);
-        _triggerAnimation = GetComponent<TriggerAnimation>();
+        
     }
 
     // Update is called once per frame
@@ -42,35 +45,36 @@ public class PlayAudio : MonoBehaviour
         // Show the labels for stopping and rewinding if audio is playing and player is close enough
         if (_animator.GetBool("hasInteracted") )
         {
-            _triggerAnimation.commandoText = labelsText[0];
+            commandoText = labelsText[0];
+        }
+        else
+        {
+            commandoText = labelsText[1];
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    public override void TriggerInteraction()
     {
-        if(other.CompareTag("Player") && _animator.GetBool("hasInteracted"))
+        if (!_animator.GetBool("hasInteracted"))
         {
-            _inRange = true;
-            _text.gameObject.SetActive(true);
+            _animator.SetBool("hasInteracted", true);
+            _audioSource.Play();
+            StartCoroutine(WaitForAudio());
         }
+        else if (_animator.GetBool("hasInteracted"))
+        {
+            _animator.SetBool("hasInteracted", false);
+            _audioSource.Stop();
+            
+        }
+
+
     }
 
-    private void OnTriggerExit(Collider other)
+    private IEnumerator WaitForAudio()
     {
-        if(other.CompareTag("Player"))
-        {
-            _inRange = false;
-            _text.gameObject.SetActive(false);
-        } 
-    }
-    
-    private IEnumerator PlaySpeeches()
-    {
-        _audioSource.PlayOneShot(audioFiles[0], 1); 
-        yield return new WaitForSeconds(audioFiles[0].length);
-        _audioSource.PlayOneShot(audioFiles[1], 1);
-        yield return new WaitForSeconds(audioFiles[1].length);
-        _audioSource.PlayOneShot(audioFiles[2], 1);
-        yield return new WaitForSeconds(audioFiles[2].length);
+        yield return new WaitForSeconds(audioFile.length);
+        _animator.SetBool("hasInteracted", false);
+        
     }
 }
