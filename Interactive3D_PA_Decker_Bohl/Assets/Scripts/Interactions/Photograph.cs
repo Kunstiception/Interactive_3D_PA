@@ -32,11 +32,11 @@ public class Photograph : InteractableObject
     // Update is called once per frame
     void Update()
     {
-        if(_animatorDrawer.GetCurrentAnimatorStateInfo(0).IsName("Idle_Opened"))
+        if(_animatorDrawer.GetCurrentAnimatorStateInfo(0).IsName("Open"))
         {
             _collider.enabled = true;
         }
-        else if (_animatorDrawer.GetCurrentAnimatorStateInfo(0).IsName("Idle_Closed"))
+        else if (_animatorDrawer.GetCurrentAnimatorStateInfo(0).IsName("Close"))
         {
             _collider.enabled = false;
         }
