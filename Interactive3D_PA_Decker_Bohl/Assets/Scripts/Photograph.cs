@@ -14,8 +14,6 @@ public class Photograph : InteractableObject
 
     private SubtitlesManager _subtitlesManager;
 
-    private bool hasDrawn = false;
-
     private Collider _collider;
 
 
@@ -27,7 +25,6 @@ public class Photograph : InteractableObject
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GameObject.Find("Bohr_Einstein").GetComponent<Animator>();
         _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
-        //_renderer.enabled = false;
         _collider = GetComponent<Collider>();
         _collider.enabled = false;
     }

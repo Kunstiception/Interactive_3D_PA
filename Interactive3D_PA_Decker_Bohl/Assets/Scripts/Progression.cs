@@ -10,6 +10,8 @@ public class Progression : MonoBehaviour
 
     public bool lightsOn = false;
 
+    public int photosTaken;
+
     private Light _flashlight;
 
     private SubtitlesManager _subtitlesManager;
