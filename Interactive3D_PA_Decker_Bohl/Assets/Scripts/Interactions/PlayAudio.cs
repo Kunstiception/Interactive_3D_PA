@@ -38,8 +38,6 @@ public class PlayAudio : InteractableObject
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponentInChildren<Animator>();
-        _text = GameObject.Find("AudioLabel").GetComponent<TMP_Text>();
-        _text.gameObject.SetActive(false);
         _progression = GameObject.Find("GameManager").GetComponent<Progression>();
         _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
 

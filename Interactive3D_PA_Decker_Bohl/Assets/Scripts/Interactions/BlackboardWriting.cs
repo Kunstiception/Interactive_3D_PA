@@ -11,6 +11,8 @@ public class BlackboardWriting : InteractableObject
 
     public AnimationClip clip2;
 
+    public AudioClip audioClip;
+
     private SubtitlesManager _subtitlesManager;
 
     private Animator _blackscreenAnimator;
@@ -21,12 +23,15 @@ public class BlackboardWriting : InteractableObject
 
     private bool isRunning;
 
+    private AudioSource _audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
         _blackscreenAnimator = GameObject.Find("Blackscreen").GetComponent<Animator>();
         _progression = GameObject.Find("GameManager").GetComponent<Progression>();
+        _audioSource = Camera.main.GetComponent<AudioSource>();
 
         foreach(DecalProjector decal in decals)
         {
@@ -62,7 +67,6 @@ public class BlackboardWriting : InteractableObject
         
         else if(timesWritten >= 2 && !isRunning)
         {
-            print("Jetzt");
             StartCoroutine(_subtitlesManager.WriteSubtitles(7, 4f));
         }
 
@@ -73,6 +77,7 @@ public class BlackboardWriting : InteractableObject
         isRunning = true;
         timesWritten++;
         _blackscreenAnimator.SetBool("hasTaken", true);
+        _audioSource.PlayOneShot(audioClip, 2.5f);
         yield return new WaitForSeconds(clip1.length + 1);
         decals[enable].enabled = true;
         decals[disable].enabled = false;

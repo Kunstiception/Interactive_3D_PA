@@ -53,12 +53,12 @@ public class TriggerAnimation : InteractableObject
                 if (lightSource != null)
                 {
                     lightSource.enabled = false;
+                    _progression.enabledLights--;
                 }
             }
         }
         else if (!_progression.lightsOn)
         {
-            print("ahahaha");
             if(lightSource == null)
             {
                 StartCoroutine(_subtitlesManager.WriteSubtitles(2, 3f));
