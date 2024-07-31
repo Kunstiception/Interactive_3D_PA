@@ -3107,10 +3107,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 431184491152753787, guid: 6a9f95e374f792043a9a5191b2573177,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6a9f95e374f792043a9a5191b2573177,
         type: 3}
       propertyPath: m_Name
       value: Alte_Lampe
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6a9f95e374f792043a9a5191b2573177,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819705084224959699, guid: 6a9f95e374f792043a9a5191b2573177,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3417,7 +3432,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 767abf608ccd7fe4da421aff833e291a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.1713473
+      value: -1.173
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 767abf608ccd7fe4da421aff833e291a,
         type: 3}
@@ -8841,7 +8856,7 @@ PrefabInstance:
     - target: {fileID: 2371679622048213525, guid: 9754f526a8c118d468507176eeee7c35,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.024
+      value: 0.019
       objectReference: {fileID: 0}
     - target: {fileID: 2371679622048213525, guid: 9754f526a8c118d468507176eeee7c35,
         type: 3}

@@ -76,7 +76,6 @@ public class PlayAudio : InteractableObject
 
         else if (!_progression.lightsOn)
         {
-            print("ahahaha");
             StartCoroutine(_subtitlesManager.WriteSubtitles(2, 3f));
 
         }
