@@ -10,8 +10,10 @@ public class TriggerAnimation : InteractableObject
     // Animator of the object
     private Animator _animator;
 
+    // Reference to the progression script
     private Progression _progression;
 
+    // Reference to the subtitles manager script
     private SubtitlesManager _subtitlesManager;
     
     // Start is called before the first frame update
@@ -21,6 +23,7 @@ public class TriggerAnimation : InteractableObject
 
         _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
 
+        // Check if the animator might be in a child game object
         if (gameObject.GetComponent<Animator>() == null)
         {
             _animator = gameObject.GetComponentInChildren<Animator>();
@@ -32,6 +35,7 @@ public class TriggerAnimation : InteractableObject
         
     }
 
+    // Trigger the interaction only if all lights are turned on, if the object is a light, then turn it on or off
     public override void TriggerInteraction()
     {
         if(_progression.lightsOn)

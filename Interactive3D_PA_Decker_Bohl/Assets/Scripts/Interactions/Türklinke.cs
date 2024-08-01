@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Türklinke : InteractableObject
 {
+    // Reference to the animation clip
     public AnimationClip animationClip;
 
     // Animator of the object
     private Animator _animator;
 
+    // Reference to the subtitles manager script
     private SubtitlesManager _subtitlesManager;
 
+    // Reference to the progression script
     private Progression _progression;
 
+    // Reference to the animator of the blackscreen
     private Animator _blackscreenAnimator;
 
     // Start is called before the first frame update
@@ -24,7 +28,7 @@ public class Türklinke : InteractableObject
         _blackscreenAnimator = GameObject.Find("Blackscreen").GetComponent<Animator>();
     }
 
-
+    // Trigger the final blackscreen if all requirements are met
     private IEnumerator Ending()
     {
         _animator.SetTrigger("hasPushed");
@@ -33,10 +37,12 @@ public class Türklinke : InteractableObject
         yield return StartCoroutine(_subtitlesManager.WriteSubtitles(11, 3f));
     }
 
+
     public override void TriggerInteraction()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            // First check if all photos were taken, if not set the corresponding subtitle
             if (_progression.photosTaken < 2)
             {
                 StartCoroutine(_subtitlesManager.WriteSubtitles(9, 3f));
@@ -45,6 +51,7 @@ public class Türklinke : InteractableObject
 
             else if (_progression.photosTaken >= 2)
             {
+                // First check if all lights are turned off, if not set the corresponding subtitle, if they are start the final coroutine
                 if (_progression.enabledLights == 0)
                 {
                     StartCoroutine(Ending());

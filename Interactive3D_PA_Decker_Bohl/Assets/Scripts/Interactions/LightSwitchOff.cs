@@ -7,6 +7,7 @@ public class LightSwitchOff : InteractableObject
     // The corresponding lightsource
     private Light _lightSource;
 
+    // Reference to the progression script
     private Progression _progression;
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class LightSwitchOff : InteractableObject
         _progression = GameObject.Find("GameManager").GetComponent<Progression>();
     }
 
+    // Switch the lightsource on and off and increment the enabledLights variable
     public override void TriggerInteraction()
     {
         if(_lightSource.gameObject.GetComponent<Light>().isActiveAndEnabled)
@@ -31,15 +33,4 @@ public class LightSwitchOff : InteractableObject
         }
         
     }
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
-
 }

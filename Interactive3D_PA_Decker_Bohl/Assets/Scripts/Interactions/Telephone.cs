@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Telephone : InteractableObject
 {
-
+    // Reference to the audio clip
     public AudioClip audioClip;
 
+    // Reference to the audio source
     private AudioSource _audioSource;
 
+    // Reference to the subtitles manager script
     private SubtitlesManager _subtitlesManager;
 
 
@@ -20,17 +22,13 @@ public class Telephone : InteractableObject
         _subtitlesManager = GameObject.Find("GameManager").GetComponent<SubtitlesManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    // Triggers the coroutine
     public override void TriggerInteraction()
     {
         StartCoroutine(PickUpPhone());
     }
 
+    // Coroutine that triggers an audio clip and sets the correct subtitles
     private IEnumerator PickUpPhone()
     {
         _audioSource.PlayOneShot(audioClip);

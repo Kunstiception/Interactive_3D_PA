@@ -5,22 +5,31 @@ using UnityEngine.UI;
 
 public class TakePhoto : InteractableObject
 {
+    // Reference to the audio clip
     public AudioClip click;
 
+    // Reference to the animation clip fadetoblack
     public AnimationClip fadeToBlack;
 
+    // Reference to the animation clip reversedfadetoblack
     public AnimationClip reversedFadeToBlack;
 
+    // Reference to the photo spot collider
     public Collider photoSpot;
 
+    // Reference to the animator of the blackscreen
     private Animator _blackscreenAnimator;
 
+    // Reference to the audio source
     private AudioSource _audioSource;
 
+    // Reference to the player movement script
     private PlayerMovement _playerMovement;
 
+    // Reference to the subtitles manager script
     private SubtitlesManager _subtitlesManager;
 
+    // Reference to the progression script
     private Progression _progression;
 
     // Start is called before the first frame update
@@ -33,18 +42,15 @@ public class TakePhoto : InteractableObject
         _progression = GameObject.Find("GameManager").GetComponent<Progression>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
+    // Trigger the coroutine
     public override void TriggerInteraction()
     {
         StartCoroutine(TakingPhoto());
 
     }
 
+    // Coroutine to imitate the action of taking a photo, it triggers a short fadetoblack and audio clip and increments the photsTaken variable
+    // The player movement is locked during this coroutine to ensure they are looking in the correct direction
     private IEnumerator TakingPhoto()
     {
         _playerMovement.enabled = false;

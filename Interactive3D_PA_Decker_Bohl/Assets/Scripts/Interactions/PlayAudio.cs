@@ -11,8 +11,10 @@ public class PlayAudio : InteractableObject
     // Array of the used UI labels
     public string[] labelsText;
 
+    // Reference to the  animation clip
     public AnimationClip animationClip;
 
+    // Reference to the audio source
     private AudioSource _audioSource;
 
     // Boolean describing if audio is currently playing
@@ -24,12 +26,16 @@ public class PlayAudio : InteractableObject
     // Boolean to check if the player is close
     private bool _inRange;
 
+    // Reference to the subtitles object
     private TMP_Text _text;
 
+    // Reference to the Trigger Animation script
     private TriggerAnimation _triggerAnimation;
 
+    // Reference to the progression script
     private Progression _progression;
 
+    // Reference to the subtitles manager script
     private SubtitlesManager _subtitlesManager;
 
 
@@ -46,7 +52,7 @@ public class PlayAudio : InteractableObject
     // Update is called once per frame
     void Update()
     {
-        // Show the labels for stopping and rewinding if audio is playing and player is close enough
+        // Show the labels for stopping if audio is playing and player is close enough, otherwise the command for playing
         if (_animator.GetBool("hasInteracted") )
         {
             commandoText = labelsText[0];
@@ -57,6 +63,8 @@ public class PlayAudio : InteractableObject
         }
     }
 
+    // Plays the animation and audio with the first interaction, plays the deactivation animation and stops audio with the second interaction
+    // (if audio should still be running)
     public override void TriggerInteraction()
     {
         if (_progression.lightsOn)
@@ -83,6 +91,7 @@ public class PlayAudio : InteractableObject
 
     }
 
+    // A coroutine that triggers the deactivation animation after the audio has played
     private IEnumerator WaitForAudio()
     {
         yield return new WaitForSeconds(audioFile.length);
